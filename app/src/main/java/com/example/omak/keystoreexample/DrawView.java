@@ -30,8 +30,8 @@ import java.util.List;
 public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
 
         private DrawThread drawThread;
-        float x,y;
-    Paint p ;
+
+    public Paint p ;
         Bitmap bitmap ;
     BitmapShader shader;
     Paint shaderPaint;
@@ -42,7 +42,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
             p = new Paint();
 
             circles = new ArrayList<>();
-            handler1 = new Circle(10,10,20);
+            handler1 = new Circle(10,200,20);
             handler2 = new Circle(30,30,20);
             circles.add(handler1);
             circles.add(handler2);
@@ -62,8 +62,17 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 
-                        x = event.getX();
-                        y = event.getY();
+                       float x = event.getX();
+                       float y = event.getY();
+                    for(Circle c : circles){
+                        if(c.contains(new Vector2(x,y))){
+
+                            c.center.set(x,y);
+                            return true;
+                        }else{
+
+                        }
+                    }
                         Log.v("works","touch");
 
 
@@ -139,13 +148,14 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
             void draw(Canvas canvas){
                 canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
                 Path path = new Path();
-                Point point = new Point((int)x,(int)y);
+
 
 
 
 
                 path.moveTo(0,getHeight()/2);
                 path.rLineTo(getWidth()/2 -20,0);
+
                 path.cubicTo(handler1.center.x,handler1.center.y,handler2.center.x,handler2.center.y,20,20);
 
                 p.setStyle(Paint.Style.FILL_AND_STROKE);
@@ -154,7 +164,9 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
                 p.setStrokeWidth(2);
 
                 canvas.drawPath(path,p);
-                canvas.drawCircle(point.x,point.y,20,shaderPaint);
+                for(Circle c:circles){
+                    c.draw(canvas);
+                }
 
             }
 
@@ -165,11 +177,12 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
 
 
         }
-        static class Circle{
+         class Circle{
             Vector2 center;
             float radius;
             Circle (float x,float y, float radius){
-
+                center = new Vector2(x,y);
+                this.radius = radius;
             }
 
             boolean contains(Vector2 p){
@@ -177,7 +190,7 @@ public class DrawView extends SurfaceView implements SurfaceHolder.Callback {
             }
 
             public void draw(Canvas canvas){
-
+                canvas.drawCircle(center.x,center.y,radius,shaderPaint);
             }
         }
 
