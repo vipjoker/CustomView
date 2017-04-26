@@ -17,7 +17,8 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        https://www.behance.net/gallery/34331871/Garnet-(Music-App-Ui)
+//        https://github.com/WritingMinds/ffmpeg-android/releases/tag/v0.3.4
         FrameLayout frameLayout = new FrameLayout(this);
         setContentView(frameLayout);
 
