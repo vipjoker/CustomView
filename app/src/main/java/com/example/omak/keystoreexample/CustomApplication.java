@@ -3,6 +3,8 @@ package com.example.omak.keystoreexample;
 import android.app.Application;
 import android.util.Log;
 
+import com.example.omak.keystoreexample.di.DaggerAppComponent;
+
 import java.io.File;
 
 import io.realm.DynamicRealm;
@@ -13,7 +15,8 @@ import io.realm.RealmSchema;
 
 
 public class CustomApplication extends Application {
-    boolean shouldMigrate = true;
+    boolean shouldMigrate = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,6 +44,9 @@ public class CustomApplication extends Application {
 
             Realm.setDefaultConfiguration(configuration);
         }
+
+
+
 
     }
     class Migration implements RealmMigration {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+<FrameLayout app:layout_widthPercent="33.33%"
+        app:layout_aspectRatio="100%"
+        android:orientation="vertical"
+    android:id="@+id/flLeft"
+    android:gravity="center"
+        android:layout_gravity="bottom"
+        android:background="#649ca7">
+
+    </FrameLayout>
+
+    <FrameLayout app:layout_widthPercent="33.33%"
+        app:layout_aspectRatio="100%"
+        android:id="@+id/flCenter"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|center"
+        android:background="#c8ec66">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            />
+    </FrameLayout>
+
+    <FrameLayout app:layout_widthPercent="33.33%"
+        app:layout_aspectRatio="100%"
+        android:id="@+id/flRight"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|right"
+        android:background="#68da7b">
+
+    </FrameLayout>
+
+
+
+
+</android.support.percent.PercentFrameLayout>

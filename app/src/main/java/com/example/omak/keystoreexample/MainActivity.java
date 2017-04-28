@@ -15,6 +15,12 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.omak.keystoreexample.di.AppComponent;
+import com.example.omak.keystoreexample.di.AppModule;
+import com.example.omak.keystoreexample.di.ContextModule;
+import com.example.omak.keystoreexample.di.DaggerAppComponent;
+import com.example.omak.keystoreexample.fragment.ButtonFragment;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,22 +34,23 @@ public class MainActivity extends AppCompatActivity {
     Button btnSave,btnLoad;
     TextView tvResult;
     EditText etPassword;
+    public AppComponent appComp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        float converted = convertDpToPixel(10,this);
+        setContentView(R.layout.main_activity);
+        setFragments();
+        appComp = DaggerAppComponent.builder().appModule(new AppModule()).contextModule(new ContextModule(this)).build();
 
-
-        FrameLayout root = new FrameLayout(this);
-        root.setBackgroundColor(Color.parseColor("#2562AC"));
-        setContentView(root);
-        DrawView view = new DrawView(this);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
-        view.setLayoutParams(params);
-
-        root.addView(view);
 
     }
+
+    private void setFragments() {
+        getSupportFragmentManager().beginTransaction().add(R.id.flLeft,new ButtonFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.flCenter,new ButtonFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.flRight,new ButtonFragment()).commit();
+    }
+
 
     public static float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
